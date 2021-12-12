@@ -1,1 +1,2 @@
 # ZmianaKontrastuZdjecia
+Autor: Marek Kawalski

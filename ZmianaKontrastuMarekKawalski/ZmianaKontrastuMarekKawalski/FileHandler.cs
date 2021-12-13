@@ -1,11 +1,6 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -18,14 +13,12 @@ namespace ChangeContrastMarekKawalski
 
     public class FileHandler
     {
+        private string saveFileName;
+        private Image originaIimage;
+
         /**
          * Method which handles opening input image.
         */
-
-        private String convertedFilePath;
-        private String destinationPath;
-        private String saveFileName;
-        private Image originaIimage;
 
         public Image OpenImageFile()
         {
@@ -34,18 +27,25 @@ namespace ChangeContrastMarekKawalski
             openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png;*.bmp|" +
              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
              "PNG(*.png)|*.png";
+            bool? result = openFileDialog.ShowDialog();
 
-            openFileDialog.ShowDialog();
-            try
+            if (result == true)
             {
                 originaIimage = new Bitmap(openFileDialog.OpenFile());
             }
-            catch (Exception e)
+            else
             {
-                MessageBox.Show("Unable to load choosen file!\n" + e.Message, "Warning!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Unable to load choosen file!\n", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
             return originaIimage;
         }
+
+        /**
+         * Method to convert Bitmap to ImageSource
+         * @param bitmap bitmap to convert
+         * @return ImageSource
+         */
 
         public BitmapImage BitmapToImageSource(Bitmap bitmap)
         {
@@ -71,21 +71,18 @@ namespace ChangeContrastMarekKawalski
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Save Image As";
-            saveFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png";
+            saveFileDialog.Filter = "Image Files(*.png; *.jpg; *.jpeg)|*.png; *.jpg; *.jpeg";
             bool? result = saveFileDialog.ShowDialog();
 
             if (result == true)
             {
                 saveFileName = saveFileDialog.FileName;
+                convertedImage.Save(saveFileName);
             }
             else
             {
-                MessageBox.Show("Unable to save file!\n", "Warning!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Unable to save file!\n", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        public void DeleteFile()
-        {
         }
     }
 }

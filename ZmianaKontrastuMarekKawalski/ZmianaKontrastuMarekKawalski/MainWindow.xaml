@@ -6,45 +6,52 @@
         xmlns:local="clr-namespace:ChangeContrastMarekKawalski"
         mc:Ignorable="d"
         Title="ZmianaKontrastuMarekKawalski"
-        Height="664" Width="1040">
+        Height="664" Width="1040"
+        ResizeMode="NoResize"
+        x:Name="myMainWindow">
 
-    <Grid HorizontalAlignment="Left" Width="1040" Cursor="Hand">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="520*" />
-            <ColumnDefinition Width="520*" />
-        </Grid.ColumnDefinitions>
-        <Image x:Name="ChoosenImage" HorizontalAlignment="Center" Height="222" Margin="0,164,0,0" VerticalAlignment="Top" Width="382" Source="/startImage.jpg" StretchDirection="Both" Stretch="Uniform" />
-        <Image x:Name="ConvertedImage" HorizontalAlignment="Center" Height="221" Margin="0,158,0,0" VerticalAlignment="Top" Width="410" Source="/startImage.jpg" StretchDirection="Both" Stretch="Uniform" Grid.Column="1" />
-        <Button x:Name="ButtonChoosePhoto" Click="ButtonChoosePhoto_Click" Content="Choose photo" HorizontalAlignment="Left" Margin="167,396,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,-2.728" Height="55" Width="156" />
-        <Button x:Name="ButtonSavePhoto" Click="ButtonSavePhoto_Click" Content="Save photo" HorizontalAlignment="Center" Margin="0,396,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,-2.728" Height="55" Width="156" Grid.Column="1" />
-        <Slider x:Name="contrastSlider" HorizontalAlignment="Left" Margin="264,478,0,0" VerticalAlignment="Top" Width="512" Grid.ColumnSpan="2" Height="26" ValueChanged="ContrastSlider_ValueChanged" Maximum="255" Minimum="-255" />
-        <CheckBox Content="Dark mode" Grid.Column="1" HorizontalAlignment="Left" Margin="236,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.01,-0.891" Height="21" Width="118" />
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="58,21,0,0" VerticalAlignment="Top" Width="148">
+    <Grid HorizontalAlignment="Center" Width="1020" Cursor="Hand" Margin="0,10,0,-6" RenderTransformOrigin="0.482,0.504">
+
+        <Image x:Name="ChoosenImage" HorizontalAlignment="Left" Height="222" Margin="81,147,0,0" VerticalAlignment="Top" Width="396" Source="/startImage.jpg" StretchDirection="Both" Stretch="Uniform" />
+        <Image x:Name="ConvertedImage" HorizontalAlignment="Left" Height="222" Margin="564,147,0,0" VerticalAlignment="Top" Width="396" Source="/startImage.jpg" StretchDirection="Both" Stretch="Uniform" />
+        <Button x:Name="ButtonChoosePhoto" Click="ButtonChoosePhoto_Click" Content="Choose photo" HorizontalAlignment="Left" Margin="344,551,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,-2.728" Height="56" Width="156" />
+        <Button x:Name="ButtonSavePhoto" Click="ButtonSavePhoto_Click" Content="Save photo" HorizontalAlignment="Left" Margin="551,552,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,-2.728" Height="55" Width="156" />
+        <Slider x:Name="contrastSlider" HorizontalAlignment="Left" Margin="264,436,0,0" VerticalAlignment="Top" Width="512" Grid.ColumnSpan="5" Height="26" ValueChanged="ContrastSlider_ValueChanged" Maximum="255" Minimum="-255" Grid.Row="3" />
+        <CheckBox x:Name="toggleContrast" Checked="darkModeEnabled" Unchecked="lightModeEnabled" Content="Dark mode" HorizontalAlignment="Left" Margin="226,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.01,-0.891" Height="21" Width="118" ClickMode="Press" />
+        <ComboBox HorizontalAlignment="Left" Margin="58,5,0,0" VerticalAlignment="Top" Width="148" Height="22">
             <ComboBoxItem IsSelected="True">C#</ComboBoxItem>
             <ComboBoxItem >ASM</ComboBoxItem>
         </ComboBox>
-        <Label Content="Toggle contrast" HorizontalAlignment="Left" Margin="470,433,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="100" />
-        <Canvas HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <CheckBox Content="Execution times" Grid.Column="1" HorizontalAlignment="Left" Margin="344,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.01,-0.891" Height="21" Width="118" />
-        <TabControl Margin="301,478,10,7" Grid.Column="1">
+        <Label x:Name="toggleContrastLabel" Content="Toggle contrast" HorizontalAlignment="Left" Margin="470,388,0,0" VerticalAlignment="Top" Grid.ColumnSpan="5" Width="100" Height="26" Grid.Row="3" />
+        <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" Height="0" Width="0" Margin="260,279,0,0" Grid.Row="3" />
+        <CheckBox x:Name="toggleExecutionTimes" Content="Execution times" HorizontalAlignment="Left" Margin="324,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.01,-0.891" Height="21" Width="118" />
+        <TabControl Margin="766,486,10,10">
             <TabItem Header="C#">
-                <Grid Background="#FFE5E5E5" />
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="38*" />
+                        <ColumnDefinition Width="6*" />
+                        <ColumnDefinition Width="147*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
             </TabItem>
             <TabItem Header="Asm">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="44*" />
-                        <ColumnDefinition Width="159*" />
+                        <ColumnDefinition Width="54*" />
+                        <ColumnDefinition Width="191*" />
+                        <ColumnDefinition Width="36*" />
                     </Grid.ColumnDefinitions>
                 </Grid>
             </TabItem>
         </TabControl>
-        <Label Content="Original" HorizontalAlignment="Left" Margin="195,118,0,0" VerticalAlignment="Top" Width="100" />
-        <Label Content="Converted" HorizontalAlignment="Center" Margin="0,118,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" />
-        <Label Content="-255" HorizontalAlignment="Left" Margin="260,504,0,0" VerticalAlignment="Top" Cursor="" Width="35" />
-        <Label Content="255" HorizontalAlignment="Left" Margin="228,504,0,0" VerticalAlignment="Top" Grid.Column="1" />
-        <Label Content="0" HorizontalAlignment="Left" Margin="510,504,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.045,0.373" Grid.ColumnSpan="2" Width="22" />
-        <Label Content="Times" Grid.Column="1" HorizontalAlignment="Left" Margin="385,460,0,0" VerticalAlignment="Top" />
-        <Button Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="454,471,0,0" VerticalAlignment="Top" Width="44" />
+        <Label x:Name="originalImageLabel" Content="Original" HorizontalAlignment="Left" Margin="192,86,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Height="26" />
+        <Label x:Name="convertedImageLabel" Content="Converted" HorizontalAlignment="Left" Margin="698,86,0,0" VerticalAlignment="Top" Width="100" Height="26" />
+        <Label x:Name="minValueLabel" Content="-255" HorizontalAlignment="Left" Margin="260,459,0,0" VerticalAlignment="Top" Cursor="" Width="36" Height="26" RenderTransformOrigin="-0.217,0.502" />
+        <Label x:Name="maxValueLabel" Content="255" HorizontalAlignment="Left" Margin="747,459,0,0" VerticalAlignment="Top" Height="26" Width="29" RenderTransformOrigin="4.524,0.202" />
+        <Label x:Name="zeroValueLabel" Content="0" HorizontalAlignment="Left" Margin="509,459,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.045,0.373" Width="22" Height="26" HorizontalContentAlignment="Center" />
+        <Label x:Name="timesLabel" Content="Times" HorizontalAlignment="Left" Margin="868,446,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.914,0.402" Height="26" Width="40" />
+        <Button Content="Reset" HorizontalAlignment="Left" Margin="966,471,0,0" VerticalAlignment="Top" Width="44" RenderTransformOrigin="1.177,0.373" Height="20" />
+        <Button x:Name="buttonRevertChanges" Content="revert changes" Click="ButtonRevertChanges_Click" HorizontalAlignment="Left" Margin="472,490,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.081,0.152" Width="96" />
     </Grid>
 </Window>

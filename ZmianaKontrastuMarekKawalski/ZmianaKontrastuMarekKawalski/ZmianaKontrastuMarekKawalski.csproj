@@ -4,11 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>myIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="startImage.jpg" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
@@ -19,7 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="startImage.jpg" />
+    <Reference Include="KontrastCSharpDll">
+      <HintPath>..\KontrastCSharpDll\bin\Debug\KontrastCSharpDll.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\startImage.jpg" />
   </ItemGroup>
 
 </Project>

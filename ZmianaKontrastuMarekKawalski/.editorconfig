@@ -1,0 +1,4 @@
+﻿[*.{cs,vb}]
+
+# IDE0130: Przestrzeń nazw nie jest zgodna ze strukturą folderów
+dotnet_style_namespace_match_folder = true

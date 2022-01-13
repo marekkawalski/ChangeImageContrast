@@ -1,14 +1,11 @@
 ﻿using Microsoft.Win32;
 using System.Drawing;
-using System.IO;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace ChangeContrastMarekKawalski
 {
     /**
-     Class which handles image file input and output. It also allows to
-     reset content of times files.
+     Class which handles image file input and output.
     */
 
     public class FileHandler
@@ -22,11 +19,13 @@ namespace ChangeContrastMarekKawalski
 
         public Image OpenImageFile()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Select image to convert";
-            openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png;*.bmp|" +
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Select image to convert",
+                Filter = "All supported graphics|*.jpg;*.jpeg;*.png;*.bmp|" +
              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-             "PNG(*.png)|*.png";
+             "PNG(*.png)|*.png"
+            };
             bool? result = openFileDialog.ShowDialog();
 
             if (result == true)
@@ -35,32 +34,10 @@ namespace ChangeContrastMarekKawalski
             }
             else
             {
-                MessageBox.Show("Unable to load choosen file!\n", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ = MessageBox.Show("Unable to load choosen file!\n", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return originaIimage;
-        }
-
-        /**
-         * Method to convert Bitmap to ImageSource
-         * @param bitmap bitmap to convert
-         * @return ImageSource
-         */
-
-        public BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new BitmapImage();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
-
-                return bitmapimage;
-            }
         }
 
         /**
@@ -69,9 +46,16 @@ namespace ChangeContrastMarekKawalski
 
         public void SaveImageFile(Image convertedImage)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Title = "Save Image As";
-            saveFileDialog.Filter = "Image Files(*.png; *.jpg; *.jpeg)|*.png; *.jpg; *.jpeg";
+            if (convertedImage == null)
+            {
+                _ = MessageBox.Show("Unable to save file!\n", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Title = "Save Image As",
+                Filter = "Image Files(*.png; *.jpg; *.jpeg)|*.png; *.jpg; *.jpeg"
+            };
             bool? result = saveFileDialog.ShowDialog();
 
             if (result == true)
@@ -81,7 +65,7 @@ namespace ChangeContrastMarekKawalski
             }
             else
             {
-                MessageBox.Show("Unable to save file!\n", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ = MessageBox.Show("Unable to save file!\n", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ChangeContrastMarekKawalski": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

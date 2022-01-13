@@ -17,10 +17,9 @@
         <Button x:Name="ButtonChoosePhoto" Click="ButtonChoosePhoto_Click" Content="Choose photo" HorizontalAlignment="Left" Margin="344,551,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,-2.728" Height="56" Width="156" />
         <Button x:Name="ButtonSavePhoto" Click="ButtonSavePhoto_Click" Content="Save photo" HorizontalAlignment="Left" Margin="551,552,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,-2.728" Height="55" Width="156" />
         <Slider x:Name="contrastSlider" HorizontalAlignment="Left" Margin="264,436,0,0" VerticalAlignment="Top" Width="512" Grid.ColumnSpan="5" Height="26"  Maximum="255" Minimum="-255" Grid.Row="3" />
-        <CheckBox x:Name="toggleContrast" Checked="darkModeEnabled" Unchecked="lightModeEnabled" Content="Dark mode" HorizontalAlignment="Left" Margin="226,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.01,-0.891" Height="21" Width="118" ClickMode="Press" />
+        <CheckBox x:Name="toggleContrast" Checked="DarkModeEnabled" Unchecked="LightModeEnabled" Content="Dark mode" HorizontalAlignment="Left" Margin="226,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.01,-0.891" Height="21" Width="118" ClickMode="Press" />
         <ComboBox x:Name="languageChooser" HorizontalAlignment="Left" Margin="58,5,0,0" VerticalAlignment="Top" Width="148" Height="22">
             <ComboBoxItem x:Name="chooseCSharp" IsSelected="True" Uid="chooseC#">C#</ComboBoxItem>
-            <ComboBoxItem x:Name="chooseCpp" Uid="chooseCpp" >C++</ComboBoxItem>
             <ComboBoxItem x:Name="chooseAsm" Uid="chooseAsm" >ASM</ComboBoxItem>
         </ComboBox>
         <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" Height="0" Width="0" Margin="260,279,0,0" Grid.Row="3" />
@@ -30,6 +29,7 @@
                 <ListBox x:Name="cSharpTimes" />
             </TabItem>
             <TabItem Header="Asm">
+                <ListBox x:Name="asmTimes" />
             </TabItem>
         </TabControl>
         <Label x:Name="originalImageLabel" Content="Original" HorizontalAlignment="Left" Margin="192,86,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" Height="26" />

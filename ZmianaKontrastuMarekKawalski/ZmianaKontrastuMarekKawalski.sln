@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZmianaKontrastuMarekKawalski", "ZmianaKontrastuMarekKawalski\ZmianaKontrastuMarekKawalski.csproj", "{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChangeContrastMarekKawalski", "ZmianaKontrastuMarekKawalski\ChangeContrastMarekKawalski.csproj", "{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}"
 	ProjectSection(ProjectDependencies) = postProject
 		{70EDB134-7ED8-4793-BC77-B7DBBB7B5B77} = {70EDB134-7ED8-4793-BC77-B7DBBB7B5B77}
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4} = {10B019A1-E90B-4CC2-901D-92CB0F00B6A4}
@@ -13,7 +13,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KontrastAsm", "KontrastAsm\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KontrastCSharpDll", "KontrastCSharpDll\KontrastCSharpDll.csproj", "{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KontrastCppDll", "KontrastCppDll\KontrastCppDll.vcxproj", "{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9BDA6187-A0DF-42BB-8CA7-944FC40433AB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,8 +38,8 @@ Global
 		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|ARM.Build.0 = Debug|Any CPU
 		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|ARM64.ActiveCfg = Debug|Any CPU
 		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|x64.Build.0 = Debug|Any CPU
+		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|x64.ActiveCfg = Debug|x64
+		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|x64.Build.0 = Debug|x64
 		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Debug|x86.Build.0 = Debug|Any CPU
 		{B48A40B0-3AC9-45FD-ADA5-D0E7AFEADD36}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,8 +72,8 @@ Global
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|ARM.Build.0 = Debug|Any CPU
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|ARM64.ActiveCfg = Debug|Any CPU
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|x64.Build.0 = Debug|Any CPU
+		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|x64.ActiveCfg = Debug|x64
+		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|x64.Build.0 = Debug|x64
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Debug|x86.Build.0 = Debug|Any CPU
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,20 +86,6 @@ Global
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Release|x64.Build.0 = Release|Any CPU
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Release|x86.ActiveCfg = Release|Any CPU
 		{10B019A1-E90B-4CC2-901D-92CB0F00B6A4}.Release|x86.Build.0 = Release|Any CPU
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Debug|ARM.ActiveCfg = Debug|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Debug|ARM64.ActiveCfg = Debug|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Debug|x64.ActiveCfg = Debug|x64
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Debug|x64.Build.0 = Debug|x64
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Debug|x86.ActiveCfg = Debug|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Debug|x86.Build.0 = Debug|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Release|Any CPU.ActiveCfg = Release|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Release|ARM.ActiveCfg = Release|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Release|ARM64.ActiveCfg = Release|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Release|x64.ActiveCfg = Release|x64
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Release|x64.Build.0 = Release|x64
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Release|x86.ActiveCfg = Release|Win32
-		{8BDC2078-E3DA-4B97-BA22-789EC7CAE046}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

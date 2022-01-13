@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace ChangeContrastMarekKawalski
 {
@@ -14,9 +11,9 @@ namespace ChangeContrastMarekKawalski
         private Bitmap bitmap;
         private BitmapData bmpData;
 
-        [MarshalAs(UnmanagedType.LPStr)] private byte[] convetred;
+        // [MarshalAs(UnmanagedType.LPStr)] private byte[] convetred;
 
-        public byte[] ReadGivenImageBytes(ref Image sourceImage)
+        public byte[] ReadGivenImageBytes(Image sourceImage)
         {
             //copy source image
             bitmap = (Bitmap)sourceImage.Clone();
@@ -31,7 +28,7 @@ namespace ChangeContrastMarekKawalski
             return pixelValues;
         }
 
-        public Image SetValuesOfBitmap(ref byte[] pixelValues)
+        public Image SetValuesOfBitmap(byte[] pixelValues)
         {
             //Set values of all image points
             //Copy the RGB values back to the bitmap
@@ -41,25 +38,45 @@ namespace ChangeContrastMarekKawalski
             return bitmap;
         }
 
-        public char[] ByteToCharArray(byte[] bytes)
+        /**
+         * Method to convert Bitmap to ImageSource
+         * @param bitmap bitmap to convert
+         * @return ImageSource
+         */
+
+        public BitmapImage BitmapToImageSource(Bitmap bitmap)
         {
-            var chars = new char[bytes.Length];
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                chars[i] = (char)bytes[i];
-            }
-            return chars;
+            using MemoryStream memory = new MemoryStream();
+            bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+            memory.Position = 0;
+            BitmapImage bitmapimage = new BitmapImage();
+            bitmapimage.BeginInit();
+            bitmapimage.StreamSource = memory;
+            bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapimage.EndInit();
+
+            return bitmapimage;
         }
 
-        public byte[] CharToByteArray(String chars)
-        {
-            int len = chars.Length;
-            convetred = new byte[len];
-            for (int i = 0; i < len; i++)
-            {
-                convetred[i] = (byte)chars[i];
-            }
-            return convetred;
-        }
+        //public char[] ByteToCharArray(byte[] bytes)
+        //{
+        //    var chars = new char[bytes.Length];
+        //    for (int i = 0; i < bytes.Length; i++)
+        //    {
+        //        chars[i] = (char)bytes[i];
+        //    }
+        //    return chars;
+        //}
+
+        //public byte[] CharToByteArray(String chars)
+        //{
+        //    int len = chars.Length;
+        //    convetred = new byte[len];
+        //    for (int i = 0; i < len; i++)
+        //    {
+        //        convetred[i] = (byte)chars[i];
+        //    }
+        //    return convetred;
+        //}
     }
 }

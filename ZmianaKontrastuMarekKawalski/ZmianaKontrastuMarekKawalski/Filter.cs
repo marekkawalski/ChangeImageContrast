@@ -11,7 +11,7 @@ namespace ChangeContrastMarekKawalski
             this.sliderValue = sliderValue;
         }
 
-        public abstract void ConvertImageContrast(ref byte[] pixelValues);
+        public abstract int ConvertImageContrast(ref byte[] pixelValues);
 
         public abstract string DisplayElapsedTime();
 

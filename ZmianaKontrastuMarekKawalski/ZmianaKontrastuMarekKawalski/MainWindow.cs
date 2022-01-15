@@ -67,7 +67,7 @@ namespace ChangeContrastMarekKawalski
             }
 
             //convert image contrast using alghoritm choosen by user
-            Filter.ConvertImageContrast(ref imageBytes);
+            testLabel.Content = Filter.ConvertImageContrast(ref imageBytes);
             string elapsedTime = Filter.DisplayElapsedTime();
             //choose where to add elapsed time
             if (Filter.GetType() == typeof(FilterCs))
@@ -90,12 +90,17 @@ namespace ChangeContrastMarekKawalski
             ConvertedImage.Source = ChoosenImage.Source;
         }
 
+        private void ButtonReset_Click(object sender, RoutedEventArgs e)
+        {
+            cSharpTimes.Items.Clear();
+            asmTimes.Items.Clear();
+        }
+
         private void DarkModeEnabled(object sender, RoutedEventArgs e)
         {
             //enable dark mode
             myMainWindow.Background = myBlack; //main window color
             toggleContrast.Foreground = myWhite; //color of toggleContrast
-            toggleExecutionTimes.Foreground = myWhite;
             originalImageLabel.Foreground = myWhite;
             convertedImageLabel.Foreground = myWhite;
             minValueLabel.Foreground = myWhite;
@@ -110,7 +115,6 @@ namespace ChangeContrastMarekKawalski
             myMainWindow.ClearValue(BackgroundProperty); //main window color
             toggleContrast.ClearValue(BackgroundProperty);
             toggleContrast.ClearValue(ForegroundProperty);
-            toggleExecutionTimes.ClearValue(ForegroundProperty);
             originalImageLabel.ClearValue(ForegroundProperty);
             convertedImageLabel.ClearValue(ForegroundProperty);
             maxValueLabel.ClearValue(ForegroundProperty);

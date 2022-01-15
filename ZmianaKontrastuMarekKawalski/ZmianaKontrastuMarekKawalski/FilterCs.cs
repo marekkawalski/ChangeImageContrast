@@ -11,9 +11,10 @@ namespace ChangeContrastMarekKawalski
             contrastFilterDll = new ContrastFilterCs();
         }
 
-        public override void ConvertImageContrast(ref byte[] pixelValues)
+        public override int ConvertImageContrast(ref byte[] pixelValues)
         {
             contrastFilterDll.ConvertImage(CalculateFactorValue(), ref pixelValues);
+            return 1;
         }
 
         public override string DisplayElapsedTime()

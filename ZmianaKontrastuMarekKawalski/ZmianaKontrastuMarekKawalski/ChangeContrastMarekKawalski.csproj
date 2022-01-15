@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>myIcon.ico</ApplicationIcon>
+    <ApplicationIcon>photo-editor (1).ico</ApplicationIcon>
     <Authors>Marek Kawalski</Authors>
     <Company>Marek Kawalski Programming</Company>
     <Platforms>AnyCPU;x64</Platforms>

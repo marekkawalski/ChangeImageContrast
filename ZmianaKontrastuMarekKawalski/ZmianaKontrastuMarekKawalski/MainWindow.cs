@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace ChangeContrastMarekKawalski
@@ -38,6 +39,8 @@ namespace ChangeContrastMarekKawalski
         private void ButtonChoosePhoto_Click(object sender, RoutedEventArgs e)
         {
             originalImage = fileHandler.OpenImageFile();
+            ChoosenImage.Source = imageHandler.BitmapToImageSource((System.Drawing.Bitmap)originalImage);
+            ConvertedImage.Source = imageHandler.BitmapToImageSource((System.Drawing.Bitmap)originalImage);
         }
 
         private void ButtonSavePhoto_Click(object sender, RoutedEventArgs e)
@@ -67,7 +70,8 @@ namespace ChangeContrastMarekKawalski
             }
 
             //convert image contrast using alghoritm choosen by user
-            testLabel.Content = Filter.ConvertImageContrast(ref imageBytes);
+
+            Filter.ConvertImageContrast(ref imageBytes);
             string elapsedTime = Filter.DisplayElapsedTime();
             //choose where to add elapsed time
             if (Filter.GetType() == typeof(FilterCs))
@@ -81,6 +85,11 @@ namespace ChangeContrastMarekKawalski
 
             alteredImage = imageHandler.SetValuesOfBitmap(imageBytes);
             ConvertedImage.Source = imageHandler.BitmapToImageSource((Bitmap)alteredImage);
+        }
+
+        private void SliderValueChanged(object sender, RoutedEventArgs e)
+        {
+            choosenValue.Content = "value: " + ((int)contrastSlider.Value).ToString();
         }
 
         private void ButtonRevertChanges_Click(object sender, RoutedEventArgs e)
@@ -103,6 +112,7 @@ namespace ChangeContrastMarekKawalski
             toggleContrast.Foreground = myWhite; //color of toggleContrast
             originalImageLabel.Foreground = myWhite;
             convertedImageLabel.Foreground = myWhite;
+            choosenValue.Foreground = myWhite;
             minValueLabel.Foreground = myWhite;
             maxValueLabel.Foreground = myWhite;
             zeroValueLabel.Foreground = myWhite;
@@ -117,6 +127,7 @@ namespace ChangeContrastMarekKawalski
             toggleContrast.ClearValue(ForegroundProperty);
             originalImageLabel.ClearValue(ForegroundProperty);
             convertedImageLabel.ClearValue(ForegroundProperty);
+            choosenValue.ClearValue(ForegroundProperty);
             maxValueLabel.ClearValue(ForegroundProperty);
             minValueLabel.ClearValue(ForegroundProperty);
             zeroValueLabel.ClearValue(ForegroundProperty);

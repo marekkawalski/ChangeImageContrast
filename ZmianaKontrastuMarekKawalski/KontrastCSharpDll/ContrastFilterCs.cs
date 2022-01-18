@@ -14,7 +14,7 @@ namespace ChangeContrastMarekKawalskiDll
             stopWatch = new Stopwatch();
         }
 
-        public int ConvertImage(double a, ref byte[] pixelValues)
+        public void ConvertImage(double a, ref byte[] pixelValues)
         {
             stopWatch.Reset();
             stopWatch.Start();
@@ -45,7 +45,6 @@ namespace ChangeContrastMarekKawalskiDll
             }
             timespan = stopWatch.Elapsed;
             stopWatch.Stop();
-            return 1;
         }
 
         public string DisplayElapsedTime()

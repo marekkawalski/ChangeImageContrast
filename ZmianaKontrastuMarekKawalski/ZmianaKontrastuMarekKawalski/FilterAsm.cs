@@ -8,7 +8,7 @@ namespace ChangeContrastMarekKawalski
     public class FilterAsm : Filter
     {
         [DllImport("../../../../../x64/Debug/KontrastAsm.dll")]
-        public static extern unsafe void ConvertContrastAsm(int length, byte* pixelValues, int factorValue);
+        public static extern unsafe void ConvertContrastAsm(int length, byte* pixelValues, double factorValue);
 
         public FilterAsm(double sliderValue) : base(sliderValue)
         {
@@ -18,7 +18,7 @@ namespace ChangeContrastMarekKawalski
         {
             fixed (byte* pointerToFirst = pixelValues)
             {
-                ConvertContrastAsm(pixelValues.Length, pointerToFirst, (int)CalculateFactorValue());
+                ConvertContrastAsm(pixelValues.Length, pointerToFirst, CalculateFactorValue());
             }
         }
 

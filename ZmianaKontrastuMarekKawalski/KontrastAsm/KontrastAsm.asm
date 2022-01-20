@@ -40,37 +40,75 @@ OPTION CASEMAP:NONE
 
 
 .data 
-;LutTab TIMES 256 DB 0 ;byte[] LutTab = new byte[256];
-;My_Array DB 100 DUP(?)
-LutTab DB 0100H DUP (?) ; LutTab
 
-
+LutTab db 0100H DUP (?) ; LutTab
 
 .code
 
-DllEntry PROC hInstDLL:DWORD, reason:DWORD, reserved1:DWORD
-
-    MOV EAX, 1 
-    RET
-
-DllEntry ENDP
 
 
-ConvertContrastAsm proc ;byteArray,arraySize,factor 
+
+; public static extern unsafe void ConvertContrastAsm(int length, byte* pixelValues, int factorValue);
+ConvertContrastAsm proc 
 	push rbp
 	;mov rbp, rsp
 
-	;movq xmm0, xmm2
-	;movq xmm1, xmm3
 	xor rax, rax
 	mov r15, rdx
-	xor r8, r8
 	xor r9, r9 ;R
 	xor r10, r10 ;G
 	xor r11, r11 ;B
 	xor r12, r12
+    ;xmm2 factor value
+	;xor r13, r13
+	;movq r13, XMM2 ;store factorvalue
+	xor r14, r14 ;lutArrayLoop counter
+	mov rsi, offset LutTab ;pointer to first element in lut array
+	mov r12, offset LutTab ;pointer to first element in lut array
+	;mov rax,128
+	;movq xmm2,rax
+lutArrayLoop:
+	cmp r14, 256 ;check if i < 256
+	jae mainLoop	;if i >= 256 exit loop
+	;-----------lutArrayLoop loop body-----------
+	mov RAX, r14 ; i
+	add RAX, 127 ; i-127
+	movq xmm0, RAX
+	mulsd xmm0,xmm2; a * (i - 127)
+	movq RAX, xmm0
+	add RAX, 127
+	mov r13, RAX
+	cmp RAX, 255
+	jg firstIf		;if (((a * (i - 127)) + 127) > 255)
+	cmp RAX, 0
+	jl secondif 	;else if (((a * (i - 127)) + 127) < 0)
+	jmp	thirdIf		;else if (((a * (i - 127)) + 127) >= 0 and (((a * (i - 127)) + 127) <= 255
+	;-----------end of lutArrayLoop loop body-----------
+	
+
+firstIf:
+	mov byte ptr[rsi], 255
+	inc r14		;i++
+	inc rsi
+	jmp lutArrayLoop
+secondif:
+	mov byte ptr[rsi], 0
+	inc r14		;i++
+	inc rsi
+	jmp lutArrayLoop
+thirdIf:
+	mov byte ptr[rsi], r13b
+	inc r14		;i++
+	inc rsi
+	jmp lutArrayLoop
+
+
+
 
 mainLoop:
+	xor r13, r13
+	xor r14, r14
+	
 	movzx r9, byte ptr [r15 + rcx -1]
 	movzx r10, byte ptr [r15 + rcx -2]
 	movzx r11, byte ptr [r15 + rcx -3]
@@ -81,11 +119,15 @@ mainLoop:
 	;mulss xmm3, xmm1
 	;movq rax, xmm3
 	;add r12, rax
-	mov r12, 0
+	;movq r12, xmm3
 
-	mov byte ptr [r15 + rcx -1], r12b
-	mov byte ptr [r15 + rcx -2], r12b
-	mov byte ptr [r15 + rcx -3], r12b
+	movzx r9, byte ptr [r12 +r9]
+	movzx r10, byte ptr [r12 + r10]
+	movzx r11, byte ptr [r12 + r11]
+
+	mov byte ptr [r15 + rcx -1], r9b
+	mov byte ptr [r15 + rcx -2], r10b
+	mov byte ptr [r15 + rcx -3], r11b
 	sub rcx, 3
 	cmp rcx,0
 	jg mainLoop

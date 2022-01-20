@@ -15,7 +15,7 @@ namespace ChangeContrastMarekKawalski
 
         public abstract string DisplayElapsedTime();
 
-        protected double CalculateFactorValue()
+        public double CalculateFactorValue()
         {
             if (sliderValue <= 0)
             {

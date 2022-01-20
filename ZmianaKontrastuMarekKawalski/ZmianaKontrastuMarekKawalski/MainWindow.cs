@@ -70,7 +70,7 @@ namespace ChangeContrastMarekKawalski
             }
 
             //convert image contrast using alghoritm choosen by user
-
+            testLabel.Content = Filter.CalculateFactorValue().ToString();
             Filter.ConvertImageContrast(ref imageBytes);
             string elapsedTime = Filter.DisplayElapsedTime();
             //choose where to add elapsed time

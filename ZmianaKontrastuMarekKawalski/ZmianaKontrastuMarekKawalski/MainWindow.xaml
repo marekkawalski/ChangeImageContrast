@@ -24,10 +24,10 @@
         </ComboBox>
         <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" Height="0" Width="0" Margin="260,279,0,0" Grid.Row="3" />
         <TabControl x:Name="timesTable" Margin="766,486,10,10">
-            <TabItem  Header="C#">
+            <TabItem x:Name="cSharpTimesHeader"  Header="C#">
                 <ListBox x:Name="cSharpTimes" />
             </TabItem>
-            <TabItem Header="Asm">
+            <TabItem x:Name="asmTimesHeader" Header="Asm">
                 <ListBox x:Name="asmTimes" />
             </TabItem>
         </TabControl>

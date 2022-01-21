@@ -43,8 +43,9 @@ namespace ChangeContrastMarekKawalskiDll
             {
                 pixelValues[i] = LutTab[pixelValues[i]];
             }
-            timespan = stopWatch.Elapsed;
+
             stopWatch.Stop();
+            timespan = stopWatch.Elapsed;
         }
 
         public string DisplayElapsedTime()

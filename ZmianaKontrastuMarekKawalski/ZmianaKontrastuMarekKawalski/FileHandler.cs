@@ -4,18 +4,19 @@ using System.Windows;
 
 namespace ChangeContrastMarekKawalski
 {
-    /**
-     Class which handles image file input and output.
-    */
+    /// <summary>
+    /// Class which handles opening and saving images
+    /// </summary>
 
     public class FileHandler
     {
         private string saveFileName;
         private Image originaIimage;
 
-        /**
-         * Method which handles opening input image.
-        */
+        /// <summary>
+        /// Method handles opening images.
+        /// </summary>
+        /// <returns>image bitmap</returns>
 
         public Image OpenImageFile()
         {
@@ -40,10 +41,10 @@ namespace ChangeContrastMarekKawalski
             return originaIimage;
         }
 
-        /**
-        * Method which handles saving converted image.
-        */
-
+        /// <summary>
+        /// Method handles saving converted image
+        /// </summary>
+        /// <param name="convertedImage">converted image to be saved</param>
         public void SaveImageFile(Image convertedImage)
         {
             if (convertedImage == null)

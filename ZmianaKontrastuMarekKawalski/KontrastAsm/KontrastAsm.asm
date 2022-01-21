@@ -16,6 +16,7 @@ my127 DD 042fe0000r                        ; 127
 ConvertContrastAsm proc 
 	push rbp                               ;secure return
 	mov r15, rdx                           ;image array length
+	xor r8, r8			                   ;execution timr value
 	xor r9, r9			                   ;Red value
 	xor r10, r10		                   ;Green value
 	xor r11, r11		                   ;Blue value
@@ -26,6 +27,13 @@ ConvertContrastAsm proc
 	xorps xmm0,xmm0                        ;clear clutter
 	xorps xmm3,xmm3                        ;clear clutter
 	
+	; *** STOPWATCH START ***
+	rdtsc ; zliczanie czasu
+	shl rdx, 32 ;
+	or rdx, rax ;
+	mov r8, rdx ; 
+	push r8
+
 lutArrayLoop:
 	xor rax, rax			               ;clear clutter
 	cmp r14, 256			               ;check if i < 256
@@ -85,6 +93,16 @@ mainLoop:
 	cmp rcx, 0                             ;check if the end of array 
 	jg mainLoop                            ;if not jump to mainLoop
 
+	;*** STOPWATCH STOP ***
+	rdtsc								   ; zliczanie czasu
+	shl rdx, 32 
+	or rdx, rax 
+	pop r8                                 ; odczytanie poprzedniego czas
+	sub rdx, r8
+
+	;*** RETURN ***
+	xor rax, rax						   ; clear clutter
+	mov rax, rdx						   ; move time of execution to rax
 	pop rbp                                ;restore before return
 	ret                                    ;return from procedure
 

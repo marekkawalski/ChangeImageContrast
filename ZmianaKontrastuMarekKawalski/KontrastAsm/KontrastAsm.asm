@@ -1,141 +1,92 @@
- ;----------------------------------------------------
- ;				C# code is as follows:
- ;
- ;           //create Lut tab
- ;           byte[] LutTab = new byte[256];
- ;
- ;           //calculate new values according to pattern
- ;           for (int i = 0; i < 256; i++)
- ;           {
- ;               if (((a * (i - 127)) + 127) > 255)
- ;               {
- ;                   LutTab[i] = 255;
- ;               }
- ;               else if (((a * (i - 127)) + 127) < 0)
- ;               {
- ;                   LutTab[i] = 0;
- ;               }
- ;               else
- ;               {
- ;                   LutTab[i] = (byte)((a * (i - 127)) + 127);
- ;               }
- ;           }
- ;           //change contrast of all points according to the LUT array
- ;           for (int i = 0; i < pixelValues.Length; i++)
- ;           {
- ;               pixelValues[i] = LutTab[pixelValues[i]];
- ;           }
-;----------------------------------------------------
-;.586
-;.MODEL FLAT, STDCALL ;obowi¹zkowy model
-
 OPTION CASEMAP:NONE
 
 .NOLIST
 .NOCREF
 .LIST
 
-.data
-
-
-
 .data 
 
-LutTab db 0100H DUP (?) ; LutTab
+LutTab db 0100H DUP (?)                    ; LutTab
+my255 DD 0437f0000r                        ; 255
+my127 DD 042fe0000r                        ; 127
 
 .code
 
-
-
-
-; public static extern unsafe void ConvertContrastAsm(int length, byte* pixelValues, int factorValue);
+;length in RCX, pixelvalues in RDX, factor in XMM2
 ConvertContrastAsm proc 
-	push rbp
-	;mov rbp, rsp
-
-	xor rax, rax
-	mov r15, rdx
-	xor r9, r9 ;R
-	xor r10, r10 ;G
-	xor r11, r11 ;B
-	xor r12, r12
-    ;xmm2 factor value
-	;xor r13, r13
-	;movq r13, XMM2 ;store factorvalue
-	xor r14, r14 ;lutArrayLoop counter
-	mov rsi, offset LutTab ;pointer to first element in lut array
-	mov r12, offset LutTab ;pointer to first element in lut array
-	;mov rax,128
-	;movq xmm2,rax
-lutArrayLoop:
-	cmp r14, 256 ;check if i < 256
-	jae mainLoop	;if i >= 256 exit loop
-	;-----------lutArrayLoop loop body-----------
-	mov RAX, r14 ; i
-	add RAX, 127 ; i-127
-	movq xmm0, RAX
-	mulsd xmm0,xmm2; a * (i - 127)
-	movq RAX, xmm0
-	add RAX, 127
-	mov r13, RAX
-	cmp RAX, 255
-	jg firstIf		;if (((a * (i - 127)) + 127) > 255)
-	cmp RAX, 0
-	jl secondif 	;else if (((a * (i - 127)) + 127) < 0)
-	jmp	thirdIf		;else if (((a * (i - 127)) + 127) >= 0 and (((a * (i - 127)) + 127) <= 255
-	;-----------end of lutArrayLoop loop body-----------
-	
-
-firstIf:
-	mov byte ptr[rsi], 255
-	inc r14		;i++
-	inc rsi
-	jmp lutArrayLoop
-secondif:
-	mov byte ptr[rsi], 0
-	inc r14		;i++
-	inc rsi
-	jmp lutArrayLoop
-thirdIf:
-	mov byte ptr[rsi], r13b
-	inc r14		;i++
-	inc rsi
-	jmp lutArrayLoop
-
-
-
-
-mainLoop:
+	push rbp                               ;secure return
+	mov r15, rdx                           ;image array length
+	xor r9, r9			                   ;Red value
+	xor r10, r10		                   ;Green value
+	xor r11, r11		                   ;Blue value
 	xor r13, r13
-	xor r14, r14
+	xor r14, r14		                   ;lutArrayLoop counter
+	mov rsi, offset LutTab                 ;pointer to first element in lut array
+	xorps xmm1,xmm1		                   ;clear clutter
+	xorps xmm0,xmm0                        ;clear clutter
+	xorps xmm3,xmm3                        ;clear clutter
 	
-	movzx r9, byte ptr [r15 + rcx -1]
-	movzx r10, byte ptr [r15 + rcx -2]
-	movzx r11, byte ptr [r15 + rcx -3]
-	;movq xmm3, r9
-	;mulss xmm3, xmm0
-	;movq r12,xmm3
-	;movq xmm3, xmm1
-	;mulss xmm3, xmm1
-	;movq rax, xmm3
-	;add r12, rax
-	;movq r12, xmm3
+lutArrayLoop:
+	xor rax, rax			               ;clear clutter
+	cmp r14, 256			               ;check if i < 256
+	jae mainLoop			               ;if i >= 256 exit loop
+	xorps xmm3,xmm3			               ;clear clutter
+	mov RAX, r14		                   ; i
+	sub RAX, 127			               ; i-127
+	cvtsi2ss xmm3, rax	                   ;convert i-127 to float
+	mulss xmm3, xmm2			           ; (i - 127) *factor //multiply float by float
+	addss xmm3, DWORD PTR my127            ;factor * (i - 127) + 127
+	cvttss2si rax, xmm3	 	               ;convert with truncate flaat to integer
+	mov r13,rax	                           ;store calculated value in r13
+	comiss xmm3, DWORD PTR my255           ;if(factor * (i - 127) + 127 > 255) 
+	ja firstIf                             ;if above condition met jump to "firstIf"
+	xorps xmm0, xmm0                       ;clear xmm0
+	mov RAX, r14			               ; i
+	sub RAX, 127		                   ; i-127
+	cvtsi2ss xmm3, rax	                   ;convert i-127 to float
+	mulss xmm3, xmm2	                   ;(i - 127) *factor //multiply float by float
+	addss xmm3, DWORD PTR my127            ;factor * (i - 127) + 127
+	comiss xmm3, xmm0                      ;compare xmm3, xmm2
+	jb secondif 	                       ;if (factor * (i - 127) + 127 ) < 0 jump to secondif
+	jmp thirdIf                            ;else jump to thirdIf
 
-	movzx r9, byte ptr [r12 +r9]
-	movzx r10, byte ptr [r12 + r10]
-	movzx r11, byte ptr [r12 + r11]
+firstIf:								   ;if(factor * (i - 127) + 127 > 255) 
+	mov byte ptr[rsi+r14], 255			   ;LutTab[i] = 255;
+	inc r14								   ;i++
+	jmp lutArrayLoop                       ;come back to lutArrayLoop
 
-	mov byte ptr [r15 + rcx -1], r9b
-	mov byte ptr [r15 + rcx -2], r10b
-	mov byte ptr [r15 + rcx -3], r11b
-	sub rcx, 3
-	cmp rcx,0
-	jg mainLoop
+secondif:								   ;else if (((a * (i - 127)) + 127) < 0)
+	mov byte ptr[rsi+r14], 0               ;LutTab[i] = 0;
+	inc r14		                           ;i++
+	jmp lutArrayLoop					   ;come back to lutArrayLoop
 
-	xor rax, rax	
-	pop rbp
-	ret 
+thirdIf:								   ;else
+	mov byte ptr[rsi+r14], r13b            ;LutTab[i] = (byte)((a * (i - 127)) + 127);
+	inc r14		                           ;i++
+	jmp lutArrayLoop                       ;come back to lutArrayLoop
 
- 
-ConvertContrastAsm endp
-END 
+mainLoop:	
+	;below there are current pixel values
+	movzx r9, byte ptr [r15 + rcx -1]      ;move current pixel value to r9  //only Blue
+	movzx r10, byte ptr [r15 + rcx -2]     ;move current pixel value to r10 //only Green
+	movzx r11, byte ptr [r15 + rcx -3]     ;move current pixel value to r11 //only Red
+
+	;below there are values that are read from lut array regarding old pixel values
+	movzx r9, byte ptr [rsi +r9]           ;move new pixel value to r9  //only Blue
+	movzx r10, byte ptr [rsi + r10]        ;move new pixel value to r10 //only Green
+	movzx r11, byte ptr [rsi + r11]        ;move new pixel value to r11 //only Red
+
+	;below there is pixel values replacement
+	mov byte ptr [r15 + rcx -1], r9b       ;replace current pixel value with the one from r9  //only Blue
+	mov byte ptr [r15 + rcx -2], r10b      ;replace current pixel value with the one from r10 //only Green
+	mov byte ptr [r15 + rcx -3], r11b      ;replace current pixel value with the one from r11 //only Red
+
+	sub rcx, 3                             ;decrement counter //by three because one pixel consists of three colors
+	cmp rcx, 0                             ;check if the end of array 
+	jg mainLoop                            ;if not jump to mainLoop
+
+	pop rbp                                ;restore before return
+	ret                                    ;return from procedure
+
+ConvertContrastAsm endp                    ;end procedure
+END                                        ;end of asm code

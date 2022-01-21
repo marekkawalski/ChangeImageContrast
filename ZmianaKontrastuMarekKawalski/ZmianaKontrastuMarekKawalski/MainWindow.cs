@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows;
 
 namespace ChangeContrastMarekKawalski
@@ -34,6 +33,7 @@ namespace ChangeContrastMarekKawalski
             }
             myBlack = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(51, 51, 51));
             myWhite = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+            toggleContrast.IsChecked = true;
         }
 
         private void ButtonChoosePhoto_Click(object sender, RoutedEventArgs e)
@@ -70,9 +70,11 @@ namespace ChangeContrastMarekKawalski
             }
 
             //convert image contrast using alghoritm choosen by user
-            testLabel.Content = Filter.CalculateFactorValue().ToString();
+            testLabel.Content = "factor: " + Filter.CalculateFactorValue().ToString();
+
             Filter.ConvertImageContrast(ref imageBytes);
             string elapsedTime = Filter.DisplayElapsedTime();
+
             //choose where to add elapsed time
             if (Filter.GetType() == typeof(FilterCs))
             {
@@ -117,6 +119,7 @@ namespace ChangeContrastMarekKawalski
             maxValueLabel.Foreground = myWhite;
             zeroValueLabel.Foreground = myWhite;
             timesLabel.Foreground = myWhite;
+            testLabel.Foreground = myWhite;
         }
 
         private void LightModeEnabled(object sender, RoutedEventArgs e)
@@ -132,6 +135,7 @@ namespace ChangeContrastMarekKawalski
             minValueLabel.ClearValue(ForegroundProperty);
             zeroValueLabel.ClearValue(ForegroundProperty);
             timesLabel.ClearValue(ForegroundProperty);
+            testLabel.ClearValue(ForegroundProperty);
         }
     }
 }

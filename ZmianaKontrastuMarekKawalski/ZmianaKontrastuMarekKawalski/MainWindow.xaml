@@ -40,7 +40,7 @@
         <Button x:Name="resetButton"  Click="ButtonReset_Click" Content="Reset" HorizontalAlignment="Left" Margin="956,461,0,0" VerticalAlignment="Top" Width="44" RenderTransformOrigin="1.177,0.373" Height="20" />
         <Button x:Name="buttonRevertChanges" Content="revert changes" Click="ButtonRevertChanges_Click" HorizontalAlignment="Left" Margin="472,403,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.081,0.152" Width="96" />
         <Button x:Name="calculateButton" Click="ButtonCalculate_Click" Content="Calculate" HorizontalAlignment="Left" Margin="461,486,0,0" VerticalAlignment="Top" Height="44" Width="118" />
-        <Label x:Name="testLabel" Content="" HorizontalAlignment="Left" Margin="94,530,0,0" VerticalAlignment="Top" Height="77" Width="202" />
+        <Label x:Name="testLabel" Content="" HorizontalAlignment="Left" Margin="58,530,0,0" VerticalAlignment="Top" Height="77" Width="238" />
         <Label x:Name="choosenValue" Content="value:" HorizontalAlignment="Left" Margin="698,400,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.026,0.027" Width="100" FontSize="16" />
     </Grid>
 </Window>

@@ -12,7 +12,7 @@ namespace ChangeContrastMarekKawalski
     {
         private int elapsedTics;
 
-        [DllImport("../../../../../x64/Debug/KontrastAsm.dll")]
+        [DllImport("../../../../../x64/Release/KontrastAsm.dll")]
         public static extern unsafe int ConvertContrastAsm(int length, byte* pixelValues, float factorValue);
 
         public FilterAsm(double sliderValue) : base(sliderValue)

@@ -1,4 +1,10 @@
-﻿using System;
+﻿//Marek Kawalski
+//gr 1
+//5 semestr
+//Informatyka AEI
+//Przedmiot: Jezyki Asemblerowe
+
+using System;
 using System.Diagnostics;
 
 namespace ChangeContrastMarekKawalskiDll
@@ -14,6 +20,12 @@ namespace ChangeContrastMarekKawalskiDll
             stopWatch = new Stopwatch();
         }
 
+        /// <summary>
+        /// Method is used to convert image bytes according to mathematical pattern in order to
+        /// change contrast
+        /// </summary>
+        /// <param name="a">Factor which is calculated from slider value</param>
+        /// <param name="pixelValues">reference to image byte array</param>
         public void ConvertImage(double a, ref byte[] pixelValues)
         {
             stopWatch.Reset();
@@ -48,11 +60,14 @@ namespace ChangeContrastMarekKawalskiDll
             timespan = stopWatch.Elapsed;
         }
 
+        /// <summary>
+        /// Method returns time that it took c# alghoritm to perform its calculations
+        /// </summary>
+        /// <returns>Time of calculation</returns>
         public string DisplayElapsedTime()
         {
-            string elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            timespan.Hours, timespan.Minutes, timespan.Seconds,
-            timespan.Milliseconds / 10);
+            string elapsedTime =
+            timespan.TotalMilliseconds.ToString();
             return elapsedTime;
         }
     }

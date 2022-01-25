@@ -55,6 +55,10 @@ namespace ChangeContrastMarekKawalski
         private void ButtonChoosePhoto_Click(object sender, RoutedEventArgs e)
         {
             originalImage = fileHandler.OpenImageFile();
+            if (originalImage == null)
+            {
+                originalImage = new Bitmap("../../../../Resources/startImage.jpg");
+            }
             ChoosenImage.Source = imageHandler.BitmapToImageSource((System.Drawing.Bitmap)originalImage);
             ConvertedImage.Source = imageHandler.BitmapToImageSource((System.Drawing.Bitmap)originalImage);
             cSharpTimes.Items.Clear();

@@ -50,12 +50,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KontrastCSharpDll\KontrastCSharpDll.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="KontrastCSharpDll">
-      <HintPath>..\KontrastCSharpDll\bin\Debug\KontrastCSharpDll.dll</HintPath>
+      <HintPath>..\KontrastCSharpDll\bin\x64\Release\KontrastCSharpDll.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,3 +1,9 @@
+;Marek Kawalski 
+;gr 1
+;5 semestr
+;Informatyka AEI
+;Przedmiot: Jezyki Asemblerowe
+
 OPTION CASEMAP:NONE
 
 .NOLIST
@@ -12,6 +18,8 @@ my127 DD 042fe0000r                        ; 127
 
 .code
 
+;Function converts contrast of an Image.
+;It takes three parameters.
 ;length in RCX, pixelvalues in RDX, factor in XMM2
 ConvertContrastAsm proc 
 	push rbp                               ;secure return
@@ -28,7 +36,7 @@ ConvertContrastAsm proc
 	xorps xmm3,xmm3                        ;clear clutter
 	
 	; *** STOPWATCH START ***
-	rdtsc ; zliczanie czasu
+	rdtsc ; measuring time
 	shl rdx, 32 ;
 	or rdx, rax ;
 	mov r8, rdx ; 
@@ -94,15 +102,15 @@ mainLoop:
 	jg mainLoop                            ;if not jump to mainLoop
 
 	;*** STOPWATCH STOP ***
-	rdtsc								   ; zliczanie czasu
+	rdtsc								   ;measuring time
 	shl rdx, 32 
 	or rdx, rax 
-	pop r8                                 ; odczytanie poprzedniego czas
+	pop r8                                 ;read previous time
 	sub rdx, r8
 
 	;*** RETURN ***
-	xor rax, rax						   ; clear clutter
-	mov rax, rdx						   ; move time of execution to rax
+	xor rax, rax						   ;clear clutter
+	mov rax, rdx						   ;move time of execution to rax
 	pop rbp                                ;restore before return
 	ret                                    ;return from procedure
 

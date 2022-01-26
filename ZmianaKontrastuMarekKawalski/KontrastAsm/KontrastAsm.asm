@@ -1,9 +1,3 @@
-;Marek Kawalski 
-;gr 1
-;5 semestr
-;Informatyka AEI
-;Przedmiot: Jezyki Asemblerowe
-
 OPTION CASEMAP:NONE
 
 .NOLIST

@@ -1,10 +1,4 @@
-﻿//Marek Kawalski
-//gr 1
-//5 semestr
-//Informatyka AEI
-//Przedmiot: Jezyki Asemblerowe
-
-using System;
+﻿using System;
 using System.Diagnostics;
 
 namespace ChangeContrastMarekKawalskiDll
@@ -66,9 +60,7 @@ namespace ChangeContrastMarekKawalskiDll
         /// <returns>Time of calculation</returns>
         public string DisplayElapsedTime()
         {
-            string elapsedTime =
-            timespan.TotalMilliseconds.ToString();
-            return elapsedTime;
+            return timespan.TotalMilliseconds.ToString();
         }
     }
 }

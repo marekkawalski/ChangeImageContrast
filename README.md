@@ -4,22 +4,22 @@
 <h2>Table of contents</h2>
 <ul>
   <li>
-    <a href="/README.md/#generalInfo">General info</a>
+    <a href="#generalInfo">General info</a>
   </li>
    <li>
-    <a href="/README.md/#images">Images</a>
+    <a href="#images">Images</a>
   </li>
   <li>
-    <a href="/README.md/#howToUse">How to use</a>
+    <a href="#howToUse">How to use</a>
   </li>
   <li>
-    <a href="/README.md/#technologies">Technologies used</a>
+    <a href="#technologies">Technologies used</a>
   </li>
    <li>
-    <a href="/README.md/#environment">Programming environment</a>
+    <a href="#environment">Programming environment</a>
   </li>
   <li>
-    <a href="/README.md/#status">Project status</a>
+    <a href="#status">Project status</a>
   </li>
   </ul>
   <h2 id="generalInfo">General info</h2>

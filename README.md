@@ -53,7 +53,7 @@ So as to examine alghoritms execution times a comparison was made between images
    <li>
    Optionally, you can save your photo.
   </li>
-  </ul>
+  </ol>
   <h2 id="technologies">Technologies used</h2> 
  <ul>
   <li>
